@@ -1,2 +1,3 @@
-# ECS_Task
-Assignment for deploying dockerize app on ecs via cicd pipeline
+# Sample Node.js application
+
+This repository is a sample Node.js application for Docker's documentation.
