@@ -87,6 +87,5 @@
     },
     "registeredAt": "2025-05-24T16:20:31.513Z",
     "registeredBy": "arn:aws:iam::593793064016:user/ameen-user1",
-    "enableFaultInjection": false,
     "tags": []
 }
