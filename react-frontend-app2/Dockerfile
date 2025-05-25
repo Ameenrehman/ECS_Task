@@ -17,9 +17,10 @@ COPY . .
 RUN npm run build
 
 # Switch to a new lightweight Nginx image
-FROM nginx:alpine
-
-COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 8080
+FROM nginx:1.23-alpine
+WORKDIR /usr/share/nginx/html 
+RUN rm -rf ./*
+COPY --from=build /app/build .
+#COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
