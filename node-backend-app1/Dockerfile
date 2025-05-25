@@ -9,7 +9,7 @@ FROM node:${NODE_VERSION}-alpine
 WORKDIR /usr/src/app
 
 # Copy the package.json and package-lock.json files into the image.
-COPY ./node-backend-app1/package*.json ./
+COPY package*.json ./
 
 # Install the application dependencies.
 RUN npm install 
