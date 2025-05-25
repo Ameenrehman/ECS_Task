@@ -10,4 +10,4 @@ spec:
   port:
     targetPort: 80 
   tls:
-    termination: edge
+    termination: passthrough
