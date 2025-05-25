@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: react-route
+  namespace: ameen2607-dev
+spec:
+  to:
+    kind: Service
+    name: react-service
+  port:
+    targetPort: 80 
+  tls:
+    termination: edge

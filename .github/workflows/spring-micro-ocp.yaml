@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'spring-frontend-app3/**'
+      - 'k8s/spring-micro-app3/**'
+    
+  workflow_dispatch:
+
 env:
   IMAGE_TAG: ${{ github.sha }}
 
@@ -35,7 +41,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build Docker image
-        run: docker build -t ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG .
+        run: docker build -t ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG ./spring-micro-app3
 
       - name: Push Docker image to ECR
         run: docker push ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG
@@ -51,12 +57,11 @@ jobs:
       - name: Apply deployment YAML
         run: |
           IMAGE="${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG"
-          sed "s|__IMAGE__|$IMAGE|g" k8s/deployment.yaml > k8s/deployment-patched.yaml
-          oc apply -f k8s/deployment-patched.yaml
-        #run: oc apply -f k8s/deployment.yml
-
+          sed "s|__IMAGE__|$IMAGE|g" k8s/spring-micro-app3/deployment.yaml > k8s/spring-micro-app3/deployment-patched.yaml
+          oc apply -f k8s/spring-micro-app3/deployment-patched.yaml
+       
       - name: Apply service YAML
-        run: oc apply -f k8s/service.yaml
+        run: oc apply -f k8s/spring-micro-app3/service.yaml
 
       - name: Apply route YAML
-        run: oc apply -f k8s/route.yaml
+        run: oc apply -f k8s/spring-micro-app3/route.yaml

@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: react-service
   namespace: ameen2607-dev
 spec:
   selector:
-    app: node-backend
+    app: react-frontend
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 80
+      targetPort: 80
   type: ClusterIP

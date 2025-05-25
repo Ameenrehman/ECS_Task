@@ -1,0 +1,182 @@
+/* Global styles for the entire application */
+.App {
+  text-align: center; /* Center-align text within the application */
+}
+
+/* Styling for the application logo */
+.App-logo {
+  height: 40vmin; /* Set the height of the logo */
+  pointer-events: none; /* Disable pointer events on the logo */
+}
+
+/* Animation for the logo spin */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear; /* Apply rotation animation to the logo */
+  }
+}
+
+/* Styling for the application header */
+.App-header {
+  background-color: #282c34; /* Set the background color of the header */
+  min-height: 100vh; /* Set the minimum height of the header */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center-align items horizontally */
+  justify-content: center; /* Center-align items vertically */
+  font-size: calc(10px + 2vmin); /* Responsive font size */
+  color: white; /* Set text color to white */
+}
+
+/* Styling for hyperlinks in the application */
+.App-link {
+  color: #61dafb; /* Set link color */
+}
+
+/* Keyframes for the logo spin animation */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg); /* Initial rotation */
+  }
+  to {
+    transform: rotate(360deg); /* Full rotation */
+  }
+}
+
+/* Styling for the about section */
+.about-section {
+  padding: 50px; /* Add padding around the content */
+  text-align: center; /* Center-align text within the section */
+  background-color: #474e5d; /* Set background color */
+  color: white; /* Set text color to white */
+}
+
+/* Container styles */
+.container {
+  padding: 0 10px; /* Add horizontal padding */
+}
+
+/* Clearfix for container and row elements */
+.container::after,
+.row::after {
+  content: ""; /* Clear content */
+  clear: both; /* Clear floating elements */
+  display: table; /* Display as table */
+}
+
+/* Title styling */
+.title {
+  color: grey; /* Set title color to grey */
+}
+
+/* Button styling */
+.button {
+  border: none; /* Remove border */
+  outline: 0; /* Remove outline */
+  display: inline-block; /* Display as inline-block */
+  padding: 8px; /* Add padding */
+  color: white; /* Set text color to white */
+  background-color: #000; /* Set background color */
+  text-align: center; /* Center-align text */
+  cursor: pointer; /* Change cursor to pointer */
+  width: 100%; /* Set width to 100% */
+}
+
+/* Button hover effect */
+.button:hover {
+  background-color: #555; /* Change background color on hover */
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%; /* Set column width to 100% on smaller screens */
+    display: block; /* Display as block */
+  }
+}
+
+/* Box sizing for HTML elements */
+html {
+  box-sizing: border-box; /* Use border-box box model */
+}
+
+/* Box sizing for all elements */
+*, *:before, *:after {
+  box-sizing: inherit; /* Inherit box-sizing */
+}
+
+/* Styling for columns */
+.column {
+  float: left; /* Float columns to the left */
+  width: 33%; /* Set column width to one-third */
+  margin-bottom: 16px; /* Add margin to bottom of columns */
+  padding: 0 8px; /* Add horizontal padding */
+}
+
+/* Styling for cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add box shadow */
+  margin: 8px; /* Add margin around cards */
+}
+
+/* Additional styles for the container */
+.container {
+  position: relative; /* Set position to relative */
+  height: 100vh; /* Set height to 100% of viewport height */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center-align items vertically */
+  justify-content: center; /* Center-align items horizontally */
+  background-size: cover; /* Cover background */
+  background-repeat: no-repeat; /* Prevent background from repeating */
+  color: #fff; /* Set text color to white */
+  text-align: center; /* Center-align text */
+  font-family: Arial, sans-serif; /* Set font family */
+  overflow: hidden; /* Hide overflowing content */
+}
+
+/* Overlay styling */
+.overlay {
+  position: absolute; /* Set position to absolute */
+  top: 0; /* Position at the top */
+  left: 0; /* Position at the left */
+  width: 100%; /* Set width to 100% */
+  height: 100%; /* Set height to 100% */
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+  z-index: 0; /* Set z-index to move behind other elements */
+}
+
+/* Text styling */
+.text {
+  position: relative; /* Set position to relative */
+  z-index: 1; /* Set z-index to appear above overlay */
+  padding: 20px; /* Add padding */
+  font-weight: bold; /* Set font weight to bold */
+}
+
+/* Title styling */
+.title {
+  font-size: 3rem; /* Set font size */
+  margin-bottom: 20px; /* Add margin to bottom */
+}
+
+/* Paragraph styling */
+.paragraph {
+  font-size: 1.5rem; /* Set font size */
+  margin-bottom: 20px; /* Add margin to bottom */
+}
+
+/* List styling */
+.list {
+  font-size: 1.2rem; /* Set font size */
+  text-align: center; /* Center-align text */
+}
+
+/* Styling for alternating table rows */
+.table-row-white {
+  background-color: #ffffff; /* White background color for even rows */
+}
+
+/* Styling for alternating table rows */
+.table-row-black {
+  background-color: #f0f0f0; /* Light gray background color for odd rows */
+}
