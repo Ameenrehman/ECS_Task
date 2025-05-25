@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   build-and-deploy:
@@ -33,10 +35,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build Docker image
-        run: docker build -t ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:${{ github.sha }} .
+        run: docker build -t ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG .
 
       - name: Push Docker image to ECR
-        run: docker push ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:${{ github.sha }}
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG
 
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
@@ -47,7 +49,11 @@ jobs:
           namespace: ameen2607-dev
 
       - name: Apply deployment YAML
-        run: oc apply -f k8s/deployment.yml
+        run: |
+          IMAGE="${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG"
+          sed "s|__IMAGE__|$IMAGE|g" k8s/deployment.yaml > k8s/deployment-patched.yaml
+          oc apply -f k8s/deployment-patched.yaml
+        #run: oc apply -f k8s/deployment.yml
 
       - name: Apply service YAML
         run: oc apply -f k8s/service.yml
