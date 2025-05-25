@@ -20,9 +20,10 @@ RUN npm run build
 FROM nginx:alpine
 
 # Create required cache dir and give permission to non-root user
-RUN mkdir -p /var/cache/nginx/client_temp && \
-    chown -R 101:101 /var/cache/nginx
-
+# Create required directories & set permissions
+RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp && \
+    chown -R 101:101 /var/cache/nginx && \
+    chown -R 101:101 /usr/share/nginx/html
 # Copy the built files from the previous stage (build) to the Nginx html directory
 COPY --from=build /app/build /usr/share/nginx/html
 
