@@ -19,23 +19,7 @@ RUN npm run build
 # Switch to a new lightweight Nginx image
 FROM nginx:alpine
 
-# Create required cache dir and give permission to non-root user
-# Create required directories & set permissions
-RUN mkdir -p /var/cache/nginx/client_temp \
-    /var/cache/nginx/proxy_temp \
-    /var/cache/nginx/fastcgi_temp \
-    /var/cache/nginx/uwsgi_temp \
-    /var/cache/nginx/scgi_temp && \
-    chown -R 101:101 /var/cache/nginx && \
-    chown -R 101:101 /usr/share/nginx/html
-# Copy the built files from the previous stage (build) to the Nginx html directory
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Set user to non-root
-USER 101
-
-# Expose port 80 for the application
-EXPOSE 80
-
-# Command to run Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
