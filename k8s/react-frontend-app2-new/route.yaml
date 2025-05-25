@@ -8,6 +8,6 @@ spec:
     kind: Service
     name: react-service
   port:
-    targetPort: 3000
+    targetPort: 3005
   tls:
     termination: edge
