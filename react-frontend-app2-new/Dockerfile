@@ -1,23 +1,29 @@
 # Use an official Node runtime as a parent image
 FROM node:16
 
+# Set environment variable to redirect npm cache
+ENV NPM_CONFIG_CACHE=/app/.npm
+
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the package.json and package-lock.json to the working directory
+# Copy package.json and lock files first
 COPY ./package*.json ./
 
-# Install the dependencies
+# Create writeable npm cache dir
+RUN mkdir -p /app/.npm && chmod -R 777 /app/.npm
+
+# Install dependencies
 RUN npm install
 
-# Copy the remaining application files to the working directory
+# Copy remaining files
 COPY . .
 
-# Build the application
+# Build the React app
 RUN npm run build
 
-# Expose port 3000 for the application
+# Expose port 3000 (for development only)
 EXPOSE 3000
 
-# Start the application
-CMD [ "npm", "run", "start" ]
+# Start the development server
+CMD ["npm", "start"]
