@@ -4,7 +4,7 @@ metadata:
   name: spring-micro
   namespace: ameen2607-dev
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: spring-micro
