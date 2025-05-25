@@ -56,7 +56,7 @@ jobs:
         #run: oc apply -f k8s/deployment.yml
 
       - name: Apply service YAML
-        run: oc apply -f k8s/service.yml
+        run: oc apply -f k8s/service.yaml
 
       - name: Apply route YAML
-        run: oc apply -f k8s/route.yml
+        run: oc apply -f k8s/route.yaml
