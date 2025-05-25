@@ -57,11 +57,11 @@ jobs:
       - name: Apply deployment YAML
         run: |
           IMAGE="${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG"
-          sed "s|__IMAGE__|$IMAGE|g" k8s/react-frontend-app2/deployment.yaml > k8s/react-frontend-app2/deployment-patched.yaml
-          oc apply -f k8s/react-frontend-app2/deployment-patched.yaml
+          sed "s|__IMAGE__|$IMAGE|g" k8s/react-frontend-app2-new/deployment.yaml > k8s/react-frontend-app2-new/deployment-patched.yaml
+          oc apply -f k8s/react-frontend-app2-new/deployment-patched.yaml
         
       - name: Apply service YAML
-        run: oc apply -f k8s/react-frontend-app2/service.yaml
+        run: oc apply -f k8s/react-frontend-app2-new/service.yaml
 
       - name: Apply route YAML
-        run: oc apply -f k8s/react-frontend-app2/route.yaml
+        run: oc apply -f k8s/react-frontend-app2-new/route.yaml
