@@ -15,8 +15,9 @@ COPY ./node-backend-app1/package*.json ./
 RUN npm install 
 
 # Copy the rest of the source files into the image.
-COPY ./node-backend-app1 .
+COPY . .
 
+RUN  ls 
 # Expose the port that the application listens on.
 EXPOSE 3000
 
