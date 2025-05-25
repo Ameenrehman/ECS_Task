@@ -47,10 +47,10 @@ jobs:
           namespace: ameen2607-dev
 
       - name: Apply deployment YAML
-        run: oc apply -f k8s/deployment.yaml
+        run: oc apply -f k8s/deployment.yml
 
       - name: Apply service YAML
-        run: oc apply -f k8s/service.yaml
+        run: oc apply -f k8s/service.yml
 
       - name: Apply route YAML
-        run: oc apply -f k8s/route.yaml
+        run: oc apply -f k8s/route.yml
