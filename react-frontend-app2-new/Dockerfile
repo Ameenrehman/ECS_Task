@@ -23,7 +23,7 @@ COPY . .
 RUN npm run build
 
 # Expose port 3000 (for development only)
-EXPOSE 3005
+EXPOSE 8081
 
 # Start the development server
 CMD ["npm", "start"]
