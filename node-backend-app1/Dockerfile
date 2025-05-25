@@ -9,13 +9,13 @@ FROM node:${NODE_VERSION}-alpine
 WORKDIR /usr/src/app
 
 # Copy the package.json and package-lock.json files into the image.
-COPY package*.json ./
+COPY ./node-backend-app1/package*.json ./
 
 # Install the application dependencies.
 RUN npm install 
 
 # Copy the rest of the source files into the image.
-COPY . .
+COPY ./node-backend-app1 .
 
 # Expose the port that the application listens on.
 EXPOSE 3000
