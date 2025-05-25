@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_TAG: ${{ github.sha }}
+  IMAGE_TAG: react-frontend-${{ github.sha }}
 
 jobs:
   build-and-deploy:
