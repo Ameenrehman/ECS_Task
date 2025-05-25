@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'react-frontend-app2/**'
-      - 'k8s/react-frontend-app2/**'
+      - 'react-frontend-app2-new/**'
+      - 'k8s/react-frontend-app2-new/**'
     
   workflow_dispatch:
 
@@ -41,7 +41,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build Docker image
-        run: docker build -t ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG ./react-frontend-app2
+        run: docker build -t ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG ./react-frontend-app2-new
 
       - name: Push Docker image to ECR
         run: docker push ${{ steps.login-ecr.outputs.registry }}/myecr-ameen:$IMAGE_TAG
