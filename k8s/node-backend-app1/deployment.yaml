@@ -18,4 +18,4 @@ spec:
         #image: 593793064016.dkr.ecr.eu-north-1.amazonaws.com/myecr-ameen:${{ github.sha }}
         image: __IMAGE__
         ports:
-        - containerPort: 3002
+        - containerPort: 3000

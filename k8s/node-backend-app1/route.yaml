@@ -8,6 +8,6 @@ spec:
     kind: Service
     name: node-service
   port:
-    targetPort: 3002
+    targetPort: 3000
   tls:
     termination: edge
