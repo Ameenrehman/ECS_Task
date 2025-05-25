@@ -19,7 +19,7 @@ COPY . .
 
 RUN  ls 
 # Expose the port that the application listens on.
-EXPOSE 3000
+EXPOSE 3002
 
 # Run the application.
 CMD node src/index.js
