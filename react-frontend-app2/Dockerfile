@@ -21,7 +21,11 @@ FROM nginx:alpine
 
 # Create required cache dir and give permission to non-root user
 # Create required directories & set permissions
-RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp && \
+RUN mkdir -p /var/cache/nginx/client_temp \
+    /var/cache/nginx/proxy_temp \
+    /var/cache/nginx/fastcgi_temp \
+    /var/cache/nginx/uwsgi_temp \
+    /var/cache/nginx/scgi_temp && \
     chown -R 101:101 /var/cache/nginx && \
     chown -R 101:101 /usr/share/nginx/html
 # Copy the built files from the previous stage (build) to the Nginx html directory
