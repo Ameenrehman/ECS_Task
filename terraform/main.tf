@@ -43,7 +43,7 @@ resource "aws_security_group" "ecs_sg" {
   name   = "ecs-sg-v2"
   ingress {
     from_port       = 3000
-    to_port         = 3001
+    to_port         = 3000
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }
@@ -130,62 +130,6 @@ resource "aws_ecs_task_definition" "node_app1" {
   }])
 }
 
-# ECS Task Definition for react-app2
-resource "aws_ecs_task_definition" "react_app2" {
-  family                   = "react-app2-task"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["EC2"]
-  cpu                      = "512"
-  memory                   = "1024"
-  execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
-  container_definitions = jsonencode([{
-    name  = "react-app2"
-    image = "593793064016.dkr.ecr.us-east-1.amazonaws.com/myecr-ameen1@sha256:591b43fa2e3a3069eb67cbcc38c90e2b383d1f740dd068a6593b51566f3b8ee0"
-    essential = true
-    portMappings = [{
-      containerPort = 3000
-      hostPort      = 3000
-      protocol      = "tcp"
-    }]
-    logConfiguration = {
-      logDriver = "awslogs"
-      options = {
-        awslogs-group         = "/ecs/react-app2"
-        awslogs-region        = "us-east-1"
-        awslogs-stream-prefix = "ecs"
-      }
-    }
-  }])
-}
-
-# ECS Task Definition for spring-micro
-resource "aws_ecs_task_definition" "spring_micro" {
-  family                   = "spring-micro-task"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["EC2"]
-  cpu                      = "512"
-  memory                   = "1024"
-  execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
-  container_definitions = jsonencode([{
-    name  = "spring-micro"
-    image = "593793064016.dkr.ecr.us-east-1.amazonaws.com/myecr-ameen1:latest"
-    essential = true
-    portMappings = [{
-      containerPort = 3001
-      hostPort      = 3001
-      protocol      = "tcp"
-    }]
-    logConfiguration = {
-      logDriver = "awslogs"
-      options = {
-        awslogs-group         = "/ecs/spring-micro"
-        awslogs-region        = "us-east-1"
-        awslogs-stream-prefix = "ecs"
-      }
-    }
-  }])
-}
-
 # ECS Service for node-app1
 resource "aws_ecs_service" "node_app1" {
   name            = "node-app1-service"
@@ -201,44 +145,6 @@ resource "aws_ecs_service" "node_app1" {
     target_group_arn = aws_lb_target_group.node_app1.arn
     container_name   = "node-app1"
     container_port   = 3000
-  }
-  depends_on = [aws_lb_listener.main]
-}
-
-# ECS Service for react-app2
-resource "aws_ecs_service" "react_app2" {
-  name            = "react-app2-service"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.react_app2.arn
-  desired_count   = 1
-  launch_type     = "EC2"
-  network_configuration {
-    subnets         = ["subnet-0437c1216c89d857c", "subnet-0f27d95ef9ed5eb73"]
-    security_groups = [aws_security_group.ecs_sg.id]
-  }
-  load_balancer {
-    target_group_arn = aws_lb_target_group.react_app2.arn
-    container_name   = "react-app2"
-    container_port   = 3000
-  }
-  depends_on = [aws_lb_listener.main]
-}
-
-# ECS Service for spring-micro
-resource "aws_ecs_service" "spring_micro" {
-  name            = "spring-micro-service"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.spring_micro.arn
-  desired_count   = 1
-  launch_type     = "EC2"
-  network_configuration {
-    subnets         = ["subnet-0437c1216c89d857c", "subnet-0f27d95ef9ed5eb73"]
-    security_groups = [aws_security_group.ecs_sg.id]
-  }
-  load_balancer {
-    target_group_arn = aws_lb_target_group.spring_micro.arn
-    container_name   = "spring-micro"
-    container_port   = 3001
   }
   depends_on = [aws_lb_listener.main]
 }
@@ -262,42 +168,6 @@ resource "aws_lb_target_group" "node_app1" {
   target_type = "ip"
   health_check {
     path                = "/app1"
-    protocol            = "HTTP"
-    matcher             = "200"
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-  }
-}
-
-# Target Group for react-app2
-resource "aws_lb_target_group" "react_app2" {
-  name        = "react-app2-tg"
-  port        = 3000
-  protocol    = "HTTP"
-  vpc_id      = "vpc-03323aabb25aa6abd"
-  target_type = "ip"
-  health_check {
-    path                = "/app2"
-    protocol            = "HTTP"
-    matcher             = "200"
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-  }
-}
-
-# Target Group for spring-micro
-resource "aws_lb_target_group" "spring_micro" {
-  name        = "spring-micro-tg"
-  port        = 3001
-  protocol    = "HTTP"
-  vpc_id      = "vpc-03323aabb25aa6abd"
-  target_type = "ip"
-  health_check {
-    path                = "/app3"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = 30
@@ -333,36 +203,6 @@ resource "aws_lb_listener_rule" "node_app1" {
   condition {
     path_pattern {
       values = ["/app1", "/app1/*"]
-    }
-  }
-}
-
-# Listener Rule for react-app2
-resource "aws_lb_listener_rule" "react_app2" {
-  listener_arn = aws_lb_listener.main.arn
-  priority     = 200
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.react_app2.arn
-  }
-  condition {
-    path_pattern {
-      values = ["/app2", "/app2/*"]
-    }
-  }
-}
-
-# Listener Rule for spring-micro
-resource "aws_lb_listener_rule" "spring_micro" {
-  listener_arn = aws_lb_listener.main.arn
-  priority     = 300
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.spring_micro.arn
-  }
-  condition {
-    path_pattern {
-      values = ["/app3", "/app3/*"]
     }
   }
 }
@@ -403,18 +243,8 @@ resource "aws_autoscaling_group" "ecs_asg" {
   }
 }
 
-# CloudWatch Log Groups
+# CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "node_app1_logs" {
   name              = "/ecs/node-app1"
-  retention_in_days = 7
-}
-
-resource "aws_cloudwatch_log_group" "react_app2_logs" {
-  name              = "/ecs/react-app2"
-  retention_in_days = 7
-}
-
-resource "aws_cloudwatch_log_group" "spring_micro_logs" {
-  name              = "/ecs/spring-micro"
   retention_in_days = 7
 }
