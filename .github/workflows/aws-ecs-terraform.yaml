@@ -6,7 +6,9 @@ on:
       - main
     paths:
       - 'terraform/**'  
-
+      - 'node-backend-app1/**'
+      - 'react-frontend-app2-new/**'
+      - 'spring-micro-app3/**'
   workflow_dispatch:
 
 jobs:
