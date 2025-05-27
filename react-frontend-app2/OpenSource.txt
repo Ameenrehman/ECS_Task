@@ -1,8 +1,0 @@
-1-Header Component-https://getbootstrap.com/docs/4.0/components/navbar/
-2-About Us-https://www.w3schools.com/howto/howto_css_about_page.asp
-3-Login Component -https://mdbootstrap.com/docs/standard/extended/login/
-4-ContactUs Component - a- https://getbootstrap.com/docs/4.3/components/forms/ , 
-                        b- https://www.w3schools.com/howto/howto_css_contact_section.asp
-5- Recepi Explorer - https://getbootstrap.com/docs/4.0/components/card/
-
-I have also appended SKR intentionally to avoid similarity to some one else open source code.
